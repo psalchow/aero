@@ -1,0 +1,58 @@
+version: '3.1'
+
+services:
+  display_db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: display
+      POSTGRES_USER: display
+      POSTGRES_DB: display
+    volumes:
+      - display_data:/var/lib/postgresql/data
+
+  recover_db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: recover
+      POSTGRES_USER: recover
+      POSTGRES_DB: recover
+    volumes:
+      - recover_data:/var/lib/postgresql/data
+
+  ifis_db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ifis
+      POSTGRES_USER: ifis
+      POSTGRES_DB: ifis
+    volumes:
+      - ifis_data:/var/lib/postgresql/data
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    ports:
+      - 22181:2181
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+
+volumes:
+  display_data: {}
+  recover_data: {}
+  ifis_data: {}
