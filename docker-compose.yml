@@ -4,6 +4,8 @@ services:
   display_db:
     image: postgres
     restart: always
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_PASSWORD: display
       POSTGRES_USER: display
@@ -14,6 +16,8 @@ services:
   recover_db:
     image: postgres
     restart: always
+    ports:
+      - 5433:5432
     environment:
       POSTGRES_PASSWORD: recover
       POSTGRES_USER: recover
@@ -24,6 +28,8 @@ services:
   ifis_db:
     image: postgres
     restart: always
+    ports:
+      - 5434:5432
     environment:
       POSTGRES_PASSWORD: ifis
       POSTGRES_USER: ifis
@@ -51,6 +57,16 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+    ports:
+      - 8080:8080
+    depends_on:
+      - kafka
 
 volumes:
   display_data: {}
