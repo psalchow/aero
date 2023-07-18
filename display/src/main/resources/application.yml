@@ -12,3 +12,9 @@ spring:
     bootstrap-servers: "localhost:9092"
     consumer:
       group-id: "display"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

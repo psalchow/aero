@@ -12,3 +12,8 @@ spring:
     bootstrap-servers: "localhost:9092"
     consumer:
       group-id: "ifis"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
