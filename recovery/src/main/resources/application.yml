@@ -5,9 +5,9 @@ server:
 spring:
   application.name: recovery
   datasource:
-    username: recovery
-    password: recovery
-    url: jdbc:postgresql://localhost:5432/recovery
+    username: recover
+    password: recover
+    url: jdbc:postgresql://localhost:5433/recover
   kafka:
     bootstrap-servers: "localhost:9092"
     consumer:

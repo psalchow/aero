@@ -7,7 +7,7 @@ spring:
   datasource:
     username: ifis
     password: ifis
-    url: jdbc:postgresql://localhost:5433/ifis
+    url: jdbc:postgresql://localhost:5434/ifis
   kafka:
     bootstrap-servers: "localhost:9092"
     consumer:
