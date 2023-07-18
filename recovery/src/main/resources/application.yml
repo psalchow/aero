@@ -1,0 +1,14 @@
+server:
+  port: 8083
+  servlet:
+    contextPath: /recovery
+spring:
+  application.name: recovery
+  datasource:
+    username: recovery
+    password: recovery
+    url: jdbc:postgresql://localhost:5432/recovery
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    consumer:
+      group-id: "recovery"

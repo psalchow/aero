@@ -1,0 +1,14 @@
+server:
+  port: 8082
+  servlet:
+    contextPath: /ifis
+spring:
+  application.name: ifis
+  datasource:
+    username: ifis
+    password: ifis
+    url: jdbc:postgresql://localhost:5433/ifis
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    consumer:
+      group-id: "ifis"

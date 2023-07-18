@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-initial
+      author: psa
+      changes:
+        - createTable:
+            tableName: outbox
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
