@@ -1,3 +1,3 @@
 rootProject.name = "aero"
 
-include("display", "ifis", "recovery")
+include("common", "display", "ifis", "recovery")
