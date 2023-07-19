@@ -9,10 +9,14 @@ spring:
     password: display
     url: jdbc:postgresql://localhost:5432/display
   kafka:
-    bootstrap-servers: "localhost:9092"
+    bootstrap-servers: "localhost:29092"
     consumer:
       group-id: "display"
-
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 management:
   endpoints:
     web:
