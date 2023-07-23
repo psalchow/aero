@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.listener.CommonErrorHandler
-import org.springframework.kafka.listener.ConsumerRecordRecoverer
 import org.springframework.kafka.listener.DefaultErrorHandler
 import org.springframework.util.backoff.FixedBackOff
 
@@ -22,7 +21,7 @@ class DltKafkaConfiguration
     }
 
     @Bean
-    fun errorHandler(dltRecoverer: ConsumerRecordRecoverer): CommonErrorHandler {
+    fun errorHandler(dltRecoverer: DltRecoverer): CommonErrorHandler {
         return DefaultErrorHandler(
             dltRecoverer,
             FixedBackOff(0, 2)
