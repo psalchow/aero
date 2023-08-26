@@ -12,3 +12,39 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
+              - column:
+                  name: group_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: topic
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: partition
+                  type: integer
+              - column:
+                  name: timestamp
+                  type: varchar(255)
+              - column:
+                  name: key
+                  type: bytea
+              - column:
+                  name: value
+                  type: bytea
+              - column:
+                  name: headers
+                  type: jsonb
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sent
+                  type: boolean
+                  constraints:
+                    nullable: false
+

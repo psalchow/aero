@@ -1,7 +1,7 @@
 package de.aero.ifis.kafka
 
+import org.apache.kafka.clients.producer.ProducerRecord
 import org.slf4j.LoggerFactory
-import org.springframework.kafka.core.KafkaOperations
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.util.*
@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 @Component
 class IfisKafkaSender(
-        val template: KafkaOperations<Any, Any>
+        val sender: OutboxStorage
 ) {
     val logger = LoggerFactory.getLogger(this::class.java)
 
@@ -24,7 +24,7 @@ class IfisKafkaSender(
         val key = UUID.randomUUID().toString();
         logger.info("sending on topic ${topic}: ${message} (${key})")
 
-        template.send(topic, key, message)
+        sender.sendViaOutbox(ProducerRecord<Any?, Any?>(topic, key, message))
     }
 
     fun message(
