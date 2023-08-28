@@ -7,7 +7,6 @@ import org.apache.kafka.clients.producer.ProducerRecord
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
-import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 @Component
@@ -20,10 +19,10 @@ class OutboxService(
                 .firstOrNull()?.id
     }
 
-    fun sendWithinTransaction(id: UUID, consumer: Consumer<ProducerRecord<String?, String?>>) {
+    fun sendWithinTransaction(id: UUID, consumer: (ProducerRecord<String?, String?>) -> Unit) {
         val outbox = findByIdLocked(id)
         outbox?.let {
-            consumer.accept(it.toStringifiedProducerRecord())
+            consumer(it.toStringifiedProducerRecord())
             it.sent = true
         }
     }
