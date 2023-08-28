@@ -21,7 +21,7 @@ class OutboxSender(
             record: ProducerRecord<String?, String?>
     ) {
         logger.info("send message with key {}", record.key())
-        val result = template.send(record);
+        val result = template.send(record)
         result.get() // TODO: andere funktion nehmen
     }
 
@@ -42,6 +42,6 @@ class OutboxSender(
     }
 
     private fun sendWithinTransaction(id: UUID) {
-        outboxService.sendWithinTransaction(id, { sendToKafka(it) })
+        outboxService.sendWithinTransaction(id) { sendToKafka(it) }
     }
 }
