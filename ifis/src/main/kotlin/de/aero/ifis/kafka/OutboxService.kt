@@ -32,9 +32,4 @@ class OutboxService(
         return outbox.getOrNull()?.takeIf { !it.sent }
     }
 
-    private fun findById(id: UUID): Outbox? {
-        val outbox = outboxRepository.findById(id)
-        return outbox.getOrNull()?.takeIf { !it.sent }
-    }
-
 }
