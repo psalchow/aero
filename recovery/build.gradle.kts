@@ -30,6 +30,7 @@ dependencies {
 	implementation("org.liquibase:liquibase-core")
 	implementation("org.springframework.kafka:spring-kafka")
 	implementation("io.hypersistence:hypersistence-utils-hibernate-62:3.5.0")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 
 	implementation(project(":common"))
 
