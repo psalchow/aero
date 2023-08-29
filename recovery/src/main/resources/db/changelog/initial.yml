@@ -4,7 +4,7 @@ databaseChangeLog:
       author: psa
       changes:
         - createTable:
-            tableName: dead-letter-queue
+            tableName: dead_letter
             columns:
               - column:
                   name: id
@@ -12,3 +12,37 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
+              - column:
+                  name: topic
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: app_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: consumer_group
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: key
+                  type: bytea
+                  constraints:
+                    nullable: false
+              - column:
+                  name: headers
+                  type: jsonb
+              - column:
+                  name: value
+                  type: bytea
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: recovered_at
+                  type: datetime

@@ -9,7 +9,7 @@ spring:
     password: recover
     url: jdbc:postgresql://localhost:5433/recover
   kafka:
-    bootstrap-servers: "localhost:9092"
+    bootstrap-servers: "localhost:29092"
     consumer:
       group-id: "recovery"
 management:
