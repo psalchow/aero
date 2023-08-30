@@ -6,11 +6,11 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.hibernate.annotations.Type
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.jpa.repository.JpaRepository
 import java.time.Instant
 import java.util.*
 
-interface DeadLetterRepository : CrudRepository<DeadLetter, UUID>
+interface DeadLetterRepository : JpaRepository<DeadLetter, UUID>
 
 @Entity
 data class DeadLetter(
@@ -22,7 +22,7 @@ data class DeadLetter(
     @Type(JsonBinaryType::class) val headers: Map<String, ByteArray>?,
     val value: ByteArray?,
     val createdAt: Instant = Instant.now(),
-    val recoveredAt: Instant? = null,
+    var recoveredAt: Instant? = null,
 )
 
 fun ConsumerRecord<*, *>.toDeadLetter(): DeadLetter {
