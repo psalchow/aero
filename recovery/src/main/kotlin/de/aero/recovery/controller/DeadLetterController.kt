@@ -39,7 +39,7 @@ class DeadLetterController(
     @Transactional
     fun recoverDeadLetter(@PathVariable id: UUID, @RequestBody newContent: String?) {
         deadLetterRepository.getReferenceById(id).also {
-            template.send(it.toStringifiedProducerRecord(newContent))
+            template.send(it.toStringifiedProducerRecord(newContent)).get()
         }.apply {
             recoveredAt = Instant.now()
         }

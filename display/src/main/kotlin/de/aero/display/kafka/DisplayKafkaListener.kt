@@ -8,7 +8,7 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 
 @Component
-@KafkaListener(topics = ["flights", "flights-display-recovery"])
+@KafkaListener(topics = ["flights", "flights-\${spring.kafka.consumer.group-id}-recovery"], properties = ["auto.offset.reset=earliest"])
 class DisplayKafkaListener() {
 
     val logger: Logger = LoggerFactory.getLogger(this::class.java)
