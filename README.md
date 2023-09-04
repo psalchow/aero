@@ -18,13 +18,10 @@ Inbox Outbox Pattern with Kafka
 * dlt
 
 **Kommunikationsswege**:
-IFIS -> _flights_ -> Display -> _dlt_ -> recover -> _flights-display-recovery_ -> Display
-
-Outbox Pattern bei IFIS implementieren
+IFIS (Outbox) -> _flights_ -> Display -> _dlt_ -> recover -> _flights-display-recovery_ -> Display
 
 **Annahmen**:
-* Jede empfangende App definiert genau eine Consumer Group, sodass die App die Ebene ist, auf der Nachricht erneut ausgesteuert werden
+* Die Consumer Group ist die Ebene, auf der Nachrichten erneut ausgesteuert werden
   * Kafka bietet im Recoverer die Möglichkeit die Conumer-Group mit auszulesen
-  * Wenn auf der Ebene recovered wird, dann muss die Conumer-Group im Topic-Schema mit abgebildet werden
   * https://docs.spring.io/spring-kafka/docs/current/reference/html/#dead-letters
 * Das DLT hat genau so viele Partitionen wir das originale Topic
