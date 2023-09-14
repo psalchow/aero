@@ -43,7 +43,7 @@ class DeadLetterController(
     fun recoverDeadLetter(@PathVariable id: UUID, @RequestBody newContent: String?) {
         deadLetterRepository.getReferenceById(id).also {
             template.send(it.toStringifiedProducerRecord(newContent)).get()
-            logger.info("Recovered failed message '${it.key}' from topic '${it.topic}' failed in '${it.consumerGroup}'")
+            logger.info("Recovered failed message '${String(it.key)}' from topic '${it.topic}' failed in '${it.consumerGroup}'")
         }.apply {
             recoveredAt = Instant.now()
         }
