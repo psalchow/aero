@@ -5,6 +5,8 @@ import de.aero.recovery.jpa.DeadLetter
 import de.aero.recovery.jpa.DeadLetterRepository
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.header.internals.RecordHeader
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.kafka.core.KafkaOperations
 import org.springframework.transaction.annotation.Transactional
@@ -24,6 +26,7 @@ class DeadLetterController(
     private val deadLetterRepository: DeadLetterRepository,
     private val template: KafkaOperations<String, String>,
 ) {
+    val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping("/dl")
     fun getDeadLetters(@RequestParam recovered: Boolean?) = deadLetterRepository.findAll().filter { dl ->
@@ -40,6 +43,7 @@ class DeadLetterController(
     fun recoverDeadLetter(@PathVariable id: UUID, @RequestBody newContent: String?) {
         deadLetterRepository.getReferenceById(id).also {
             template.send(it.toStringifiedProducerRecord(newContent)).get()
+            logger.info("Recovered failed message '${it.key}' from topic '${it.topic}' failed in '${it.consumerGroup}'")
         }.apply {
             recoveredAt = Instant.now()
         }
